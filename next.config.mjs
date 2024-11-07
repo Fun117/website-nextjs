@@ -6,6 +6,7 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     // basePath: "/" // Currently you need to set the `baseUrl` yourself
+    output: 'export',
 };
 
 export default withNextIntl(nextConfig);
