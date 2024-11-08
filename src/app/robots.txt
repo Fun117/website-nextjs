@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /api
+
+Sitemap: https://nextjs-rich-tpl.vercel.app/sitemap.xml

@@ -15,10 +15,8 @@ export function Turl(url: string) {
 interface TLinkProps {
   children: React.ReactNode;
   className?: string;
-  to?: string;
   href?: string;
   target?: string;
-  i18n_link?: boolean;
   i18n_text?: boolean;
   i18n_path?: string;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
@@ -31,10 +29,8 @@ const TLink = React.forwardRef<HTMLAnchorElement, TLinkProps>(
     {
       children,
       className,
-      to,
       href,
       target,
-      i18n_link = false,
       i18n_text = false,
       i18n_path = "",
       onClick,
@@ -43,10 +39,9 @@ const TLink = React.forwardRef<HTMLAnchorElement, TLinkProps>(
     ref
   ) => {
     const t = useTranslations();
-    const lang = useLocale();
 
-    const hrefUrl = to ? (i18n_link ? `/${lang}${to}` : `${to}`) : href || "";
-    const setTarget = target || (to ? "_self" : "_blank");
+    const hrefUrl = href || "";
+    const setTarget = target || "_self";
 
     if (isNextuiLink) {
       return (

@@ -1,4 +1,3 @@
-
 import Config from "@/types/richtpl.config";
 import { Book, Home } from "lucide-react";
 
@@ -8,7 +7,7 @@ import { Book, Home } from "lucide-react";
  */
 const config: Config = {
   // Tagline for the site
-  tagline: "Next.js Website",
+  tagline: "Next.js Template",
 
   // URL to the favicon
   favicon: "/favicon.ico",
@@ -21,7 +20,7 @@ const config: Config = {
 
   // GitHub deployment configuration
   organizationName: "fun117", // GitHub organization/user name
-  projectName: "website-nextjs", // GitHub repository name
+  projectName: "nextjs-rich-tpl", // GitHub repository name
 
   // Internationalization (i18n) configuration
   i18n: {
@@ -86,15 +85,14 @@ const config: Config = {
           {
             label: "Home",
             icon: <Home />,
-            to: "/",
+            href: "/",
             i18n_text: true,
           },
           {
             label: "About",
             icon: <Book />,
-            to: "/about",
+            href: "/about",
             i18n_text: true,
-            i18n_link: true,
           },
         ],
       },
@@ -102,7 +100,7 @@ const config: Config = {
     // Header configuration
     header: {
       // Title for the header
-      title: "Website",
+      title: "Richtpl",
       // Logo configuration
       logo: {
         type: "Vercel&Next.js", // Type of logo
@@ -113,14 +111,12 @@ const config: Config = {
         nav: [
           {
             label: "Home", // Label for the item
-            to: "/", // Internal URL path
-            i18n_link: true, // Whether to include locale prefix in the URL
+            href: "/", // Internal URL path
             i18n_text: true, // Whether to include locale prefix in the Text
           },
           {
             label: "About", // Label for the item
-            to: "/about", // Internal URL path
-            i18n_link: true, // Whether to include locale prefix in the URL
+            href: "/about", // Internal URL path
             i18n_text: true, // Whether to include locale prefix in the Text
           },
         ],
@@ -132,7 +128,7 @@ const config: Config = {
     // Footer configuration
     footer: {
       // Title for the footer
-      title: "Website",
+      title: "Richtpl",
       // Logo configuration
       logo: {
         href: "https://vercel.com/home?utm_source=next-site&utm_medium=footer&utm_campaign=next-website",

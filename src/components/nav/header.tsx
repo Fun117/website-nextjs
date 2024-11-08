@@ -66,8 +66,6 @@ function Header() {
             <TLink
               target={item.target}
               href={item.href}
-              to={item.to}
-              i18n_link={item.i18n_link || false}
               i18n_text={item.i18n_text || false}
             >
               {item.label}
@@ -135,8 +133,6 @@ function Header() {
               <TLink
                 target={item.target}
                 href={item.href}
-                to={item.to}
-                i18n_link={item.i18n_link || false}
                 i18n_text={item.i18n_text || false}
                 isNextuiLink
               >

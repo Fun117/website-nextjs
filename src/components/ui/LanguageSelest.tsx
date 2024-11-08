@@ -1,11 +1,11 @@
 "use client";
 
-import config from "../../../richtpl.config";
-import React, { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Globe } from "lucide-react";
+import React, { useTransition } from "react";
+import config from "../../../richtpl.config";
 import { useRouter } from "next/navigation";
-import useLocalePathname from "@/hooks/useLocalePathname";
+import { Globe } from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,24 +13,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { Locale, setUserLocale } from "@/services/locale";
 
 function LanguageSelest() {
-  const router = useRouter();
-  const pathname = useLocalePathname();
   const t = useTranslations("Languages");
   const lang = useLocale();
 
-  const [selectLocale, setSelectLocale] = useState<string>(
-    lang || config.i18n.defaultLocale
-  );
+  const router = useRouter();
 
-  useEffect(() => {
-    const handleLocaleChange = (newLocale: string) => {
-      router.push(`/${newLocale}/${pathname}`);
+  const [isPending, startTransition] = useTransition();
+  function onChange(value: string) {
+    const locale = value as Locale;
+    startTransition(() => {
+      setUserLocale(locale);
       router.refresh();
-    };
-    handleLocaleChange(selectLocale);
-  }, [selectLocale, router, pathname]);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    console.log(isPending);
+  }
 
   if (!config.i18n.selectButton) {
     return <></>;
@@ -38,34 +38,34 @@ function LanguageSelest() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        aria-label={t("Select a language")}
-        className={`w-full max-w-[130px] focus:hidden`}
-        asChild
+    <DropdownMenuTrigger
+      aria-label={t("Select a language")}
+      className={`w-full max-w-[130px] focus:hidden`}
+      asChild
+    >
+      <Button
+        variant="outline"
+        className="focus:hidden flex justify-start items-center"
       >
-        <Button
-          variant="outline"
-          className="focus:hidden flex justify-start items-center"
+        <Globe className="w-5 h-5 mr-2" />
+        <span>
+          {config.i18n.localeConfigs[lang || config.i18n.defaultLocale].label}
+        </span>
+      </Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent>
+      {config.i18n.locales.map((lang, idx) => (
+        <DropdownMenuItem
+          key={idx}
+          onClick={() =>
+            onChange(config.i18n.localeConfigs[lang].path)
+          }
         >
-          <Globe className="w-5 h-5 mr-2" />
-          <span>
-            {config.i18n.localeConfigs[lang || config.i18n.defaultLocale].label}
-          </span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        {config.i18n.locales.map((lang, idx) => (
-          <DropdownMenuItem
-            key={idx}
-            onClick={() =>
-              setSelectLocale(config.i18n.localeConfigs[lang].path)
-            }
-          >
-            {config.i18n.localeConfigs[lang].label}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+          {config.i18n.localeConfigs[lang].label}
+        </DropdownMenuItem>
+      ))}
+    </DropdownMenuContent>
+  </DropdownMenu>
   );
 }
 
